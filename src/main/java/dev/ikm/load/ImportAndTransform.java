@@ -121,6 +121,7 @@ id	effectiveTime	active	moduleId	refsetId	referencedComponentId	owlExpression
         countOwlRecordsForConcepts();
         processLymeDiseaseOfInnerEar(transaction);
         processMeglumineAntimoniate(transaction);
+        processActiveIngredient(transaction);
         transaction.commit();
         PrimitiveData.save();
     }
@@ -208,6 +209,17 @@ id	effectiveTime	active	moduleId	refsetId	referencedComponentId	owlExpression
         writeStatedLogicalExpression(transaction, MEGLUMINE_ANTIMONIATE, expression);
 
         LOG.info("\n" + PrimitiveData.text(MEGLUMINE_ANTIMONIATE.nid()) + "\n" + expression.toString() );
+    }
+
+    private static void processActiveIngredient(Transaction transaction) {
+
+        EntityProxy.Concept HAS_ACTIVE_INGREDIENT =
+                EntityProxy.Concept.make("Has Active Ingredient", UUID.fromString("65bf3b7f-c854-36b5-81c3-4915461020a8"));
+        LogicalExpression expression = extractLogicalExpression(HAS_ACTIVE_INGREDIENT);
+
+        writeStatedLogicalExpression(transaction, HAS_ACTIVE_INGREDIENT, expression);
+
+        LOG.info("\n" + PrimitiveData.text(HAS_ACTIVE_INGREDIENT.nid()) + "\n" + expression.toString() );
     }
 
     private static void writeStatedLogicalExpression(Transaction transaction, EntityProxy.Concept conceptProxy, LogicalExpression expression) {
